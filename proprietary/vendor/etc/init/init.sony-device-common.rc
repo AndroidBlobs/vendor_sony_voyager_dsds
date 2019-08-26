@@ -1,0 +1,26 @@
+# Copyright (c) 2017 Sony Mobile Communications Inc.
+#
+# product common configuration
+#
+
+on early-init
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/ \
+        ${ro.vendor.nfc.ko}
+
+# for SM42 Egis Fingerprint et516
+on boot
+    mkdir /data/vendor/misc/egistec 0771  system system
+    chown system system /dev/esfp0
+    chmod 0644 /dev/esfp0
+    chown system system /sys/devices/soc/soc:egistec/device_prepare
+    chmod 0666 /sys/devices/soc/soc:egistec/device_prepare
+
+setprop vendor.fingerprint.hwid et516
+
+service ets_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service_et512
+    class late_start
+    user system
+    group system input
+
+on property:vendor.backlight_on=*
+    write /sys/touchscreen/link_input_dev/smx2_enable_irq ${vendor.backlight_on}
