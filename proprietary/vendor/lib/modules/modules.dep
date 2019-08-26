@@ -1,0 +1,4 @@
+/vendor/lib/modules/sim_detect.ko:
+/vendor/lib/modules/nxp_pn553_nfc.ko:
+/vendor/lib/modules/qca_cld3_wlan.ko:
+/vendor/lib/modules/texfat.ko:
