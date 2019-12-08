@@ -1,0 +1,20 @@
+#
+# Copyright (c) 2018 Sony Mobile Communications Inc.
+# All rights, including trade secret rights, reserved.
+#
+
+# DRM widevine
+service wvkbd_installer /vendor/bin/wvkbd
+    class late_start
+    user system
+    group system
+    oneshot
+
+on post-fs-data
+    # create directory for widevine
+    mkdir /data/vendor/wv 0700 media media
+
+# DRM HDCP
+on property:sys.boot_completed=1
+    # Create directory for hdcp-sdk
+    mkdir /data/vendor/hdcp-sdk 0775 system system
